@@ -2,6 +2,7 @@ package com.example.springexam.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.LinkedHashMap;
@@ -23,6 +24,16 @@ public class signupController {
 
         return radio;
     }
+
+    @GetMapping("/signup")
+    public String getSignup(Model model){
+        //라디오버튼의 초기화 메소드 호출
+        radioMarriage = initRadioMarriage();
+        //라디오버튼용 Map을 model에 등록
+        model.addAttribute("radioMarrige", radioMarriage);
+        return "login/signup";
+    }
+
 
     @PostMapping("/signup")
     public String postSignup(Model model){
