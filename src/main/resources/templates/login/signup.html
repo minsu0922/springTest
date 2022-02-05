@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"></link>
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+
+    <title>Signup</title>
+</head>
+<body>
+<div class="col-sm-5">
+    <div class="page-header">
+        <h1>사용자 가입</h1>
+    </div>
+    <form method="post" th:action="@{/signup}">
+        <table class="table table-bordered table-hover">
+        <tr>
+            <th class="active col-sm-3">사용자 ID</th>
+            <td>
+                <div class="form-group">
+                    <input type="text" class="form-control"/>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th class="active">비밀번호</th>
+            <td>
+                <div class="form-group">
+                    <input type="text" class="form-control"/>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th class="active">이름</th>
+            <td>
+                <div class="form-group">
+                    <input type="text" class="form-control"/>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th class="active">생년월일</th>
+            <td>
+                <div class="form-group">
+                    <input type="text" class="form-control"
+                           placeholder="yyyy/MM/dd"/>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th class="active">나이</th>
+            <td>
+                <div class="form-group">
+                    <input type="text" class="form-control"/>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th class="active">결혼</th>
+            <td>
+                <div class="form-group">
+                    <div th:each="item : ${radioMarrige}">
+                        <input type="radio" name="raidoMarriage"
+                        th:text="${item.key}"
+                        th:value="${item.value}">
+                        </input>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        </table>
+        <button class="btn btn-primary" type="submit">등록</button>
+    </form>
+
+</div>
+</body>
+</html>

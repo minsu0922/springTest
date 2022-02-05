@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+  <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"></link>
+  <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+  <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+
+  <title>login</title>
+</head>
+<body class="text-center">
+<h1>Login</h1>
+<form method="post" action="/login">
+    <label>로그인 ID</label>
+    <input type="text" /><br/>
+    <br/>
+    <label>비밀번호</label>
+    <input type="password"/><br/>
+    <br/>
+    <button class="btn btn-primary" type="submit">로그인</button>
+</form>
+<br/>
+<a th:href="@{'/signup'}">신규가입</a>
+</body>
+</html>
