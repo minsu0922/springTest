@@ -13,46 +13,67 @@
     <div class="page-header">
         <h1>사용자 가입</h1>
     </div>
-    <form method="post" th:action="@{/signup}">
+    <form method="post" th:action="@{/signup}" th:object="${signupForm}">
         <table class="table table-bordered table-hover">
         <tr>
             <th class="active col-sm-3">사용자 ID</th>
             <td>
-                <div class="form-group">
-                    <input type="text" class="form-control"/>
+                <div class="form-group"
+                     th:classappend="${#fields.hasErrors('userId')} ? 'has-error'">
+                    <input type="text" class="form-control" th:field="*{userId}"/>
+                    <span class="text-danger"
+                          th:if="${#fields.hasErrors('userId')}"
+                          th:errors="*{userId}">userId 오류</span>
                 </div>
             </td>
         </tr>
         <tr>
             <th class="active">비밀번호</th>
             <td>
-                <div class="form-group">
-                    <input type="text" class="form-control"/>
+                <div class="form-group"
+                     th:classappend="${#fields.hasErrors('password')} ? 'has-error'">
+                    <input type="text" class="form-control" th:field="*{password}"/>
+                    <span class="text-danger"
+                    th:if="${#fields.hasErrors('password')}"
+                    th:errors="*{password}">password 오류</span>
                 </div>
             </td>
         </tr>
         <tr>
             <th class="active">이름</th>
             <td>
-                <div class="form-group">
-                    <input type="text" class="form-control"/>
+                <div class="form-group"
+                     th:classappend="${#fields.hasErrors('userName')} ? 'has-error'">
+                    <input type="text" class="form-control"
+                           th:field="*{userName}"/>
+                    <span class="text-danger"
+                          th:if="${#fields.hasErrors('userName')}"
+                          th:errors="*{userName}">userName 오류</span>
                 </div>
             </td>
         </tr>
         <tr>
             <th class="active">생년월일</th>
             <td>
-                <div class="form-group">
+                <div class="form-group"
+                     th:classappend="${#fields.hasErrors('birthday')} ? 'has-error'">
                     <input type="text" class="form-control"
-                           placeholder="yyyy/MM/dd"/>
+                           placeholder="yyyy/MM/dd" th:field="*{birthday}"/>
+                    <span class="text-danger"
+                          th:if="${#fields.hasErrors('birthday')}"
+                          th:errors="*{birthday}">birthday 오류</span>
                 </div>
             </td>
         </tr>
         <tr>
             <th class="active">나이</th>
             <td>
-                <div class="form-group">
-                    <input type="text" class="form-control"/>
+                <div class="form-group"
+                     th:classappend="${#fields.hasErrors('birthday')} ? 'has-error'">
+                    <input type="text" class="form-control" th:field="*{age}"/>
+                    <span class="text-danger"
+                          th:if="${#fields.hasErrors('age')}"
+                          th:errors="*{age}">age 오류</span>
                 </div>
             </td>
         </tr>
@@ -63,9 +84,13 @@
                     <div th:each="item : ${radioMarrige}">
                         <input type="radio" name="raidoMarriage"
                         th:text="${item.key}"
-                        th:value="${item.value}">
+                        th:value="${item.value}"
+                        th:field="*{marriage}">
                         </input>
                     </div>
+                    <span class="text-danger"
+                          th:if="${#fields.hasErrors('marriage')}"
+                          th:errors="*{marriage}">marriage 오류</span>
                 </div>
             </td>
         </tr>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+
+<meta charset="UTF-8">
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"
+          rel="stylesheet"></link>
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <link th:href="@{/css/home.css}" rel="stylesheet"></link>
+    <title>Home</title>
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Spring Boot</a>
+        </div>
+        <form method="post" th:action="@{/logout}">
+            <a th:href="@{'/home'}">홈화면</a>
+            <button class="btn btn-link pull-right navbar-brand" type="submit">
+                로그아웃
+            </button>
+        </form>
+    </div>
+</nav>
+<!-- 컨텐츠 -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-10 col-sm-offset-2 main">
+            <div th:include="__${contents}__"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

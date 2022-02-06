@@ -1,4 +1,4 @@
-package com.example.springexam.controller;
+package com.example.springexam.login.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +15,6 @@ public class loginController {
 
     @PostMapping("/login")
     public String postLogin(Model model){
-        return "login/login";
+        return "redirect:/home";
     }
 }

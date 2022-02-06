@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8"></meta>
+</head>
+<body>
+<!-- 포인트：th:fragment -->
+<div th:fragment="home_contents">
+    <div class="page-header">
+        <a th:href="@{'/home'}">홈화면</a><br><br>
+        <a th:href="@{'/userList'}">사용자 목록</a>
+    </div>
+</div>
+</body>
+</html>
