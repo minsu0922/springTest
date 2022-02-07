@@ -2,6 +2,9 @@ package com.example.springexam.login.controller;
 
 import com.example.springexam.domian.model.GroupOrder;
 import com.example.springexam.domian.model.signupForm;
+import com.example.springexam.domian.model.user;
+import com.example.springexam.domian.service.userService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,6 +18,9 @@ import java.util.Map;
 
 @Controller
 public class signupController {
+
+    @Autowired
+    private userService userService;
 
     //라디오 버튼용 변수
     private Map<String , String> radioMarriage;
@@ -52,6 +58,24 @@ public class signupController {
             return getSignup(form, model);
         }
         System.out.println(form);
+
+        user user = new user();
+        user.setUserId(form.getUserId());
+        user.setPassword(form.getPassword());
+        user.setUserName(form.getUserName());
+        user.setBirthday(form.getBirthday());
+        user.setAge(form.getAge());
+        user.setMarriage(form.isMarriage());
+        user.setRole("ROLE_GENERAL");
+
+        boolean results = userService.insert(user);
+
+        if(results == true){
+            System.out.println("등록성공");
+
+        }else {
+            System.out.println("등록실패");
+        }
         //login.html로 리다이렉션
         return "redirect:/login";
     }

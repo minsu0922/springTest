@@ -15,7 +15,7 @@ public class signupForm {
     private String userId;
 
     @NotBlank(groups = ValiGroup1.class)
-    @Length(min = 4, max = 100, groups = ValiGroup2.class)
+    @Length(min = 3, max = 100, groups = ValiGroup2.class)
     @Pattern(regexp = "^[a-zA-Z0-9]+$", groups = ValiGroup3.class)
     private String userName;
 
@@ -26,8 +26,8 @@ public class signupForm {
     @DateTimeFormat(pattern = "yyyy/MM/dd")
     private Date birthday;
 
-    @Max(value = 20 ,groups = ValiGroup2.class)
-    @Min(value = 100, groups = ValiGroup2.class)
+    @Max(value = 100 ,groups = ValiGroup2.class)
+    @Min(value = 20, groups = ValiGroup2.class)
     private int age;
 
     @AssertFalse(groups = ValiGroup2.class)
