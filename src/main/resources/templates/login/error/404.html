@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <title>404 오류</title>
+</head>
+<body>
+<h1 th:text="${status} + ' ' + ${error}"></h1>
+<p>404 오류입니다.</p>
+<p>로그인으로 돌아가기</p>
+<form method="post" th:action="@{/logout}">
+    <button class="btn btn-link" type="submit">로그인으로 돌아가기</button>
+</form>
+</body>
+</html>

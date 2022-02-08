@@ -4,6 +4,10 @@ import com.example.springexam.domian.model.signupForm;
 import com.example.springexam.domian.model.user;
 import com.example.springexam.domian.service.userService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -71,13 +76,19 @@ public class homeController {
         user.setBirthday(form.getBirthday());
         user.setAge(form.getAge());
         user.setMarriage(form.isMarriage());
-        boolean result = userService.updateOne(user);
 
-        if(result == true){
-            model.addAttribute("result", "변경성공");
-        }else {
-            model.addAttribute("result", "변경실패");
+        try {
+            boolean result = userService.updateOne(user);
+
+            if(result == true){
+                model.addAttribute("result", "변경성공");
+            }else {
+                model.addAttribute("result", "변경실패");
+            }
+        }catch (DataAccessException e){
+            model.addAttribute("result", "변경실패(트랜잭션 테스트");
         }
+
         return getUserList(model);
     }
 
@@ -108,9 +119,24 @@ public class homeController {
     }
 
     @GetMapping("/userList/csv")
-    public String getUserListCsv(Model model){
-        return getUserList(model);
+    public ResponseEntity<byte[]> getUserListCsv(Model model) {
+        // 모든 사용자를 검색하고 CSV 파일을 서버에 저장
+        userService.userCsvOut();
+        byte[] bytes = null;
+        try {
+            // 서버에 저장된 sample.csv 파일을 byte 로 검색
+            bytes = userService.getFile("sample.csv");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //HTTP 헤더 설정
+        HttpHeaders header = new HttpHeaders();
+        header.add("Content-Type", "text/csv; charset=UTF-8");
+        header.setContentDispositionFormData("filename", "sample.csv");
+        //sample.csv 리턴
+        return new ResponseEntity<>(bytes, header, HttpStatus.OK);
     }
+
 
     @PostMapping("/logout")
     public String postLogout(){

@@ -95,6 +95,10 @@ public class userDaoJdbcImpl implements userDao {
                 user.isMarriage(),
                 user.getUserId());
 
+        if(rowNumber>0){
+            throw new DataAccessException("트랜젝션 테스트") {};
+        }
+
         return rowNumber;
     }
     @Override
@@ -106,5 +110,9 @@ public class userDaoJdbcImpl implements userDao {
 
     @Override
     public void userCsvout() throws DataAccessException{
+
+        String sql = "SELECT * FROM m_user";
+        userRowCallbackHandler handler = new userRowCallbackHandler();
+        jdbc.query(sql, handler);
     }
 }

@@ -5,10 +5,13 @@ import com.example.springexam.domian.model.signupForm;
 import com.example.springexam.domian.model.user;
 import com.example.springexam.domian.service.userService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -79,4 +82,27 @@ public class signupController {
         //login.html로 리다이렉션
         return "redirect:/login";
     }
+
+    @ExceptionHandler(DataAccessException.class)
+    public String dataAccessExceptionHandler(DataAccessException e, Model model){
+        model.addAttribute("error", "내부서버 오류(db) : ExceptionHandler");
+
+        model.addAttribute("message", "SignupController DataAccessException이 발생합니다");
+
+        model.addAttribute("status", HttpStatus.INTERNAL_SERVER_ERROR);
+
+        return "error";
+    }
+
+    @ExceptionHandler(Exception.class)
+    public String exceptionHandler(Exception e, Model model){
+        model.addAttribute("error", "내부 서버 오류 : ExceptionHandler");
+
+        model.addAttribute("message", "SignupController에서 Exception이 발생합니다");
+
+        model.addAttribute("status", HttpStatus.INTERNAL_SERVER_ERROR);
+
+        return "error";
+    }
+
 }
