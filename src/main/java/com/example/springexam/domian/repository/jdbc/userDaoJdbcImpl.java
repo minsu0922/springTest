@@ -5,6 +5,7 @@ import com.example.springexam.domian.repository.userDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -18,6 +19,9 @@ public class userDaoJdbcImpl implements userDao {
     @Autowired
     JdbcTemplate jdbc;
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     @Override
     public int count() throws DataAccessException {
 
@@ -27,6 +31,9 @@ public class userDaoJdbcImpl implements userDao {
 
     @Override
     public int insertOne(user user) throws DataAccessException{
+
+        String password = passwordEncoder.encode(user.getPassword());
+
         int rowNumber = jdbc.update("INSERT INTO m_user(user_id,"
                 + " password,"
                 + " user_name,"
@@ -36,7 +43,7 @@ public class userDaoJdbcImpl implements userDao {
                 + " role)"
                 + " VALUES(?, ?, ?, ?, ?, ?, ?)",
                 user.getUserId(),
-                user.getPassword(),
+                password,
                 user.getUserName(),
                 user.getBirthday(),
                 user.getAge(),
@@ -80,6 +87,9 @@ public class userDaoJdbcImpl implements userDao {
     }
     @Override
     public int updateOne(user user) throws DataAccessException{
+
+        String password = passwordEncoder.encode(user.getPassword());
+
         int rowNumber = jdbc.update("UPDATE m_user"
                         + " SET"
                         + " password = ?,"
@@ -88,16 +98,16 @@ public class userDaoJdbcImpl implements userDao {
                         + " age = ?,"
                         + " marriage = ?"
                         + " WHERE user_id= ?",
-                user.getPassword(),
+                password,
                 user.getUserName(),
                 user.getBirthday(),
                 user.getAge(),
                 user.isMarriage(),
                 user.getUserId());
 
-        if(rowNumber>0){
-            throw new DataAccessException("트랜젝션 테스트") {};
-        }
+//        if(rowNumber>0){
+//            throw new DataAccessException("트랜젝션 테스트") {};
+//        }
 
         return rowNumber;
     }

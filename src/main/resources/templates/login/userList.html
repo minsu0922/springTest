@@ -13,11 +13,11 @@
     </div>
     <table class="table table-bordered table-hover table-striped">
         <tr>
-            <th class="info col-sm-2">사용자 ID </th>
-            <th class="info col-sm-2">사용자명 </th>
-            <th class="info col-sm-2">생년월일 </th>
-            <th class="info col-sm-2">나이 </th>
-            <th class="info col-sm-2">결혼여부 </th>
+            <th class="info col-sm-2">사용자 ID</th>
+            <th class="info col-sm-2">사용자명</th>
+            <th class="info col-sm-2">생년월일</th>
+            <th class="info col-sm-2">나이</th>
+            <th class="info col-sm-2">결혼여부</th>
             <th class="info col-sm-2"></th>
         </tr>
         <tr th:each="user : ${userList}">
@@ -28,9 +28,9 @@
             <td th:text="${user.marriage}? '기혼' : '미혼'"></td>
 
             <td>
-            <a class="btn btn-primary" th:href="@{'/userDetail/' + ${user.userId}}">
-                상세보기
-            </a>
+                <a class="btn btn-primary" th:href="@{'/userDetail/' + ${user.userId}}">
+                    상세보기
+                </a>
             </td>
         </tr>
     </table>
